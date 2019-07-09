@@ -35,9 +35,5 @@ void timerHandler() {
 }
 
 constexpr unsigned long frequencyToInterruptUs(float frequency) {
-  if (polarityCount > 2) {
-    polarityCount = 0;
-  }
-  polarityCount++;
   return 1.0 / frequency / 2.0 * 1000000;
 }
