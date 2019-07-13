@@ -14,14 +14,12 @@ void setup() {
   pinMode(EA, OUTPUT);
   pinMode(IN1, OUTPUT);
   pinMode(IN2, OUTPUT);
+  
+  FastGPIO::Pin<EA>::setOutputHigh();
+  FastGPIO::Pin<IN1>::setOutputLow();
+  FastGPIO::Pin<IN2>::setOutputHigh();
 
-  pinMode(EA, LOW);
-  digitalWrite(IN1, LOW);
-  digitalWrite(IN2, HIGH);
-
-  FastGPIO::Pin<EA>::setOutputLow();
-
-  Timer1.initialize(frequencyToInterruptUs(100));
+  Timer1.initialize(frequencyToInterruptUs(50));
   Timer1.attachInterrupt(timerHandler);
   Timer1.start();
 }
@@ -31,7 +29,8 @@ void loop() {
 }
 
 void timerHandler() {
-  FastGPIO::Pin<EA>::setOutputToggle();
+  FastGPIO::Pin<IN1>::setOutputToggle();
+  FastGPIO::Pin<IN2>::setOutputToggle();
 }
 
 constexpr unsigned long frequencyToInterruptUs(float frequency) {
